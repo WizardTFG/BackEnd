@@ -19,6 +19,7 @@ from django.urls import path
 from api.views import test_conexion
 
 urlpatterns = [
+    path('', test_conexion),
     path('admin/', admin.site.urls),
     path('api/test/', test_conexion),
 ]
