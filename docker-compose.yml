@@ -14,7 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-wizard_user} -d ${DB_NAME:-wizard_db}"]
