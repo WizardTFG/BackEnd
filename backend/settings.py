@@ -152,3 +152,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://([a-z0-9-]+\.)?localhost:5173$",
+]
