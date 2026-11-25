@@ -25,7 +25,9 @@ class Application(models.Model):
             slug = base_slug
             counter = 1
 
-            while Application.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+            while Application.objects.filter(
+                slug=slug
+            ).exclude(pk=self.pk).exists():
                 slug = f'{base_slug}-{counter}'
                 counter += 1
 
@@ -40,6 +42,7 @@ class ApplicationClinician(models.Model):
         on_delete=models.CASCADE,
         related_name='clinicians'
     )
+
     clinician = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -61,8 +64,27 @@ class Form(models.Model):
         on_delete=models.CASCADE,
         related_name='forms'
     )
+
     name = models.CharField(max_length=100)
     fields = models.JSONField(default=list)
 
     def __str__(self):
         return self.name
+
+
+class ApplicationResponse(models.Model):
+    application = models.ForeignKey(
+        Application,
+        on_delete=models.CASCADE,
+        related_name='responses'
+    )
+
+    answers = models.JSONField(default=dict)
+
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return (
+            f'Respuesta de {self.application.name} '
+            f'- {self.submitted_at}'
+        )
